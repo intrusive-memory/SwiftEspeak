@@ -1,6 +1,13 @@
 # SwiftEspeak
 
+![Tests](https://github.com/intrusive-memory/SwiftEspeak/actions/workflows/tests.yml/badge.svg)
+![Experimental](https://img.shields.io/badge/status-experimental-yellow.svg)
+
 A Swift wrapper for [eSpeak](http://espeak.sourceforge.net/), the open source speech synthesis library. SwiftEspeak provides a clean, Swift-friendly API for text-to-speech synthesis and audio file generation.
+
+> **⚠️ EXPERIMENTAL - NOT READY FOR PRODUCTION**
+>
+> This library is experimental and incomplete. It is being developed as a learning exercise and proof of concept. The API is unstable and subject to change without warning. Features may be missing, incomplete, or non-functional. **Do not use this library in production environments.**
 
 ## Overview
 
@@ -26,7 +33,6 @@ SwiftEspeak enables Swift developers to easily integrate text-to-speech capabili
 - macOS 11.0+ / iOS 14.0+
 - Swift 5.5+
 - Xcode 13.0+
-- eSpeak library installed on the system
 
 ## Installation
 
@@ -40,18 +46,16 @@ dependencies: [
 ]
 ```
 
-### Manual Installation
+The eSpeak library dependency is handled automatically by the Swift Package Manager.
 
-1. Clone this repository
-2. Install eSpeak on your system:
-   ```bash
-   # macOS
-   brew install espeak
+### Command Line Utility
 
-   # Linux
-   sudo apt-get install espeak
-   ```
-3. Add SwiftEspeak to your project
+SwiftEspeak includes a command line utility target (similar to Apple's `say` command) for text-to-speech synthesis from the terminal. To build and install the CLI tool:
+
+```bash
+swift build -c release
+# The executable will be available in .build/release/
+```
 
 ## Quick Start
 

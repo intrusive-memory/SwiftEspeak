@@ -1,0 +1,106 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: macOS Tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Install eSpeak-NG
+        run: brew install espeak-ng
+
+      - name: Verify eSpeak-NG installation
+        run: |
+          brew list espeak-ng
+          pkg-config --cflags --libs espeak-ng || echo "pkg-config not found, continuing..."
+
+      - name: Build for macOS
+        run: |
+          echo "🔨 Building for macOS"
+          swift build
+
+      - name: Run tests on macOS
+        run: |
+          echo "🧪 Running tests on macOS"
+          swift test
+
+  ios-test:
+    name: iOS Simulator Tests
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Install eSpeak-NG
+        run: brew install espeak-ng
+
+      - name: Verify eSpeak-NG installation
+        run: |
+          brew list espeak-ng
+          pkg-config --cflags --libs espeak-ng || echo "pkg-config not found, continuing..."
+
+      - name: Build for iOS Simulator
+        run: |
+          echo "🔨 Building for iOS Simulator"
+          xcodebuild build \
+            -scheme SwiftEspeak \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run tests on iOS Simulator
+        run: |
+          echo "🧪 Running tests on iOS Simulator"
+          xcodebuild test \
+            -scheme SwiftEspeak \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
+            -enableCodeCoverage YES \
+            CODE_SIGNING_ALLOWED=NO
+
+  lint:
+    name: Code Quality
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for TODOs in committed code
+        run: |
+          if git diff origin/main...HEAD | grep -E "^\+.*TODO|^\+.*FIXME"; then
+            echo "⚠️  Warning: New TODOs or FIXMEs detected"
+          fi
+
+      - name: Check file sizes
+        run: |
+          find Sources -type f -name "*.swift" -size +100k -exec echo "⚠️  Large file: {}" \;
+
+      - name: Check for print statements
+        run: |
+          if grep -r "print(" Sources/ --include="*.swift" | grep -v "// print"; then
+            echo "⚠️  Warning: print() statements found in source code"
+          fi

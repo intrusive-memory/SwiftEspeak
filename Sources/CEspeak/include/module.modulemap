@@ -1,0 +1,5 @@
+module CEspeak [system] {
+    header "CEspeak.h"
+    link "espeak-ng"
+    export *
+}
