@@ -1,13 +1,17 @@
 # SwiftEspeak
 
 ![Tests](https://github.com/intrusive-memory/SwiftEspeak/actions/workflows/tests.yml/badge.svg)
-![Experimental](https://img.shields.io/badge/status-experimental-yellow.svg)
+![Deprecated](https://img.shields.io/badge/status-deprecated-red.svg)
 
-A Swift wrapper for [eSpeak](http://espeak.sourceforge.net/), the open source speech synthesis library. SwiftEspeak provides a clean, Swift-friendly API for text-to-speech synthesis and audio file generation.
+A Swift wrapper for [eSpeak](http://espeak.sourceforge.net/), the open source speech synthesis library.
 
-> **⚠️ EXPERIMENTAL - NOT READY FOR PRODUCTION**
+> **🚫 DEPRECATED - PROJECT ARCHIVED**
 >
-> This library is experimental and incomplete. It is being developed as a learning exercise and proof of concept. The API is unstable and subject to change without warning. Features may be missing, incomplete, or non-functional. **Do not use this library in production environments.**
+> **This project has been deprecated and archived.** We are pursuing a different approach to text-to-speech synthesis using [SwiftVoxAlta](https://github.com/intrusive-memory/SwiftVoxAlta), which leverages modern LLM-based voice generation instead of traditional synthesis engines.
+>
+> This repository remains available for historical reference but will receive no further updates. For modern, high-quality voice generation, please see:
+> - **[SwiftVoxAlta](https://github.com/intrusive-memory/SwiftVoxAlta)** - LLM-based voice generation
+> - **[SwiftHablare](https://github.com/intrusive-memory/SwiftHablare)** - Multi-provider voice generation (Apple TTS, ElevenLabs)
 
 ## Overview
 
